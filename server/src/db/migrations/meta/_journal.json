@@ -22,6 +22,20 @@
       "when": 1752283224221,
       "tag": "0002_large_scourge",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1752339853441,
+      "tag": "0003_bizarre_silverclaw",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1752339853442,
+      "tag": "0004_fix_embeddings_dimensions",
+      "breakpoints": true
     }
   ]
 }

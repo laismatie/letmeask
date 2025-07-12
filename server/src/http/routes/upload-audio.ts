@@ -1,7 +1,8 @@
 import type { FastifyPluginCallbackZod } from "fastify-type-provider-zod"
 import { z } from "zod/v4"
-import { fastifyMultipart } from "@fastify/multipart"
-import { transcribeAudio } from "../../services/gemini.ts"
+import { generateEmbeddings, transcribeAudio } from "../../services/gemini.ts"
+import { schema } from "../../db/schema/index.ts"
+import { db } from "../../db/connection.ts"
 
 
 export const uploadAudioRoute: FastifyPluginCallbackZod = async (app) => {
@@ -27,14 +28,22 @@ export const uploadAudioRoute: FastifyPluginCallbackZod = async (app) => {
             const audioAsBase64 = audioBuffer.toString('base64')
 
             const transcription = await transcribeAudio(audioAsBase64, audio.mimetype)
+            const embeddings = await generateEmbeddings(transcription)
 
-            return {transcription}
+            const result = await db.insert(schema.audioChunks).values({
+                roomId,
+                transcription,
+                embeddings,
+            }).returning()
 
-            /*
-            - Transcrever o audio
-            - Gerar o vetor semantico / embeddings
-            - Armazenar os vetores no banco de dados
-            */ 
+            const audioChunk = result[0]
+            
+            if(!audioChunk) {
+                throw new Error('Erro ao salvar o audio chunk')
+            }
+
+            return reply.status(201).send({chunkId: audioChunk.id})
+
         }  
     )
 }
