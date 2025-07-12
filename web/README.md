@@ -13,6 +13,10 @@ Este é o frontend da aplicação **Let me Ask**, desenvolvido durante um evento
 - **TanStack React Query**: Gerenciamento de dados assíncronos.
 - **clsx, tailwind-merge, class-variance-authority**: Utilitários para manipulação de classes CSS.
 
+### Prints
+<img width="1172" height="936" alt="image" src="https://github.com/user-attachments/assets/cae1f93e-7d90-417d-8984-147a9dca57fb" />
+<img width="1162" height="782" alt="image" src="https://github.com/user-attachments/assets/0b2784b5-35ea-4017-9b10-363cf22c7178" />
+
 ## Estrutura
 
 - `src/` - Código-fonte do frontend
